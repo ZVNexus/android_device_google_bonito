@@ -44,6 +44,7 @@ BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 # STOPSHIP Bringup hack- no low power
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
 BOARD_KERNEL_CMDLINE += loop.max_part=7
+BOARD_KERNEL_CMDLINE += androidboot.fastboot=1
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CLANG_VERSION := 9.0.5
@@ -88,6 +89,11 @@ TARGET_RECOVERY_UI_LIB := \
 
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+
+TARGET_RECOVERY_TWRP_LIB := \
+  librecovery_twrp_bonito \
+  libnos_citadel_for_recovery \
+  libnos_for_recovery liblogdevices/bonito/proprietary/BoardConfigVendo
 
 # Enable chain partition for system.
 BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
@@ -234,3 +240,18 @@ BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 BOARD_USES_SDM845_QCRIL := true
 
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
+
+# TWRP
+TW_THEME := portrait_hdpi
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_DEFAULT_BRIGHTNESS := "80"
+TW_INCLUDE_CRYPTO := true
+AB_OTA_UPDATER := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_NO_HAPTICS := true
+TW_EXCLUDE_MTP := true
+PLATFORM_SECURITY_PATCH := 2025-12-31
+TW_USE_TOOLBOX := true
+TW_EXCLUDE_TWRPAPP := true

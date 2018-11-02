@@ -1,0 +1,11 @@
+/boot           emmc   /dev/block/bootdevice/by-name/boot       flags=wait;slotselect
+/system         ext4   /dev/block/bootdevice/by-name/system     flags=wait;slotselect
+/system_image   emmc   /dev/block/bootdevice/by-name/system     flags=slotselect
+/vendor         ext4   /dev/block/bootdevice/by-name/vendor     flags=wait;slotselect
+/vendor_image   emmc   /dev/block/bootdevice/by-name/vendor     flags=slotselect
+/metadata       ext4   /dev/block/bootdevice/by-name/metadata   flags=display="Metadata"
+/data           f2fs   /dev/block/bootdevice/by-name/userdata   flags=wait;check;fileencryption=ice;keydirectory=/metadata/vold/metadata_encryption;formattable
+/misc           emmc   /dev/block/bootdevice/by-name/misc
+
+# USB OTG
+/usb_otg        vfat   /dev/block/sda         /dev/block/sda1   flags=voldmanaged=usbotg:auto;display="USB-OTG";storage;wipeingui;removable
