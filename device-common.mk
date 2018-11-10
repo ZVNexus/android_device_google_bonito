@@ -25,6 +25,10 @@ include device/google/bonito/device.mk
 
 # TWRP
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/modules/synaptics_dsx_core.ko:root/sbin/synaptics_dsx_core.ko \
+    $(LOCAL_PATH)/modules/synaptics_dsx_fw_update.ko:root/sbin/synaptics_dsx_fw_update.ko \
+    $(LOCAL_PATH)/modules/synaptics_dsx_rmi_dev.ko:root/sbin/synaptics_dsx_rmi_dev.ko \
+    $(LOCAL_PATH)/modules/synaptics_dsx_test_reporting.ko:root/sbin/synaptics_dsx_test_reporting.ko \
     $(LOCAL_PATH)/recovery/root/init.rc:recovery/root/init.rc \
     $(LOCAL_PATH)/recovery/root/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc \
     $(LOCAL_PATH)/recovery/root/plat_hwservice_contexts:recovery/root/plat_hwservice_contexts \
@@ -53,6 +57,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/libxml2.so:recovery/root/sbin/libxml2.so \
     $(LOCAL_PATH)/recovery/root/sbin/prepdecrypt.sh:recovery/root/sbin/prepdecrypt.sh \
     $(LOCAL_PATH)/recovery/root/sbin/qseecomd:recovery/root/sbin/qseecomd \
+    $(LOCAL_PATH)/recovery/root/sbin/touchdriver.sh:recovery/root/sbin/touchdriver.sh \
     $(LOCAL_PATH)/recovery/root/sbin/vndservicemanager:recovery/root/sbin/vndservicemanager \
     $(LOCAL_PATH)/recovery/root/system/etc/vintf/manifest.xml:recovery/root/manifest.xml \
     $(LOCAL_PATH)/recovery/root/vendor/compatibility_matrix.1.xml:recovery/root/vendor/compatibility_matrix.1.xml \
