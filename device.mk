@@ -52,7 +52,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.apk_verity.mode=1
 
 PRODUCT_PACKAGES += \
-    messaging
+    messaging \
+    netutils-wrapper-1.0
 
 LOCAL_PATH := device/google/bonito
 
