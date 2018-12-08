@@ -25,10 +25,6 @@ include device/google/bonito/device.mk
 
 # TWRP
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/modules/synaptics_dsx_core.ko:root/sbin/synaptics_dsx_core.ko \
-    $(LOCAL_PATH)/modules/synaptics_dsx_fw_update.ko:root/sbin/synaptics_dsx_fw_update.ko \
-    $(LOCAL_PATH)/modules/synaptics_dsx_rmi_dev.ko:root/sbin/synaptics_dsx_rmi_dev.ko \
-    $(LOCAL_PATH)/modules/synaptics_dsx_test_reporting.ko:root/sbin/synaptics_dsx_test_reporting.ko \
     $(LOCAL_PATH)/recovery/root/init.rc:recovery/root/init.rc \
     $(LOCAL_PATH)/recovery/root/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc \
     $(LOCAL_PATH)/recovery/root/plat_hwservice_contexts:recovery/root/plat_hwservice_contexts \
