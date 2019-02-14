@@ -56,4 +56,6 @@
 
     <!-- Fudge factor for how much below the overheat temp to dismiss alarm. -->
     <integer name="config_alarmTemperatureTolerance">10</integer>
+
+    <bool name="has_elmyra_service">true</bool>
 </resources>
