@@ -1,0 +1,17 @@
+[
+ {
+   "repository":  "StatiXOS/android_device_google_bonito-sepolicy",
+   "target_path": "device/google/bonito-sepolicy",
+   "branch":      "9"
+ },
+ {
+   "repository":  "StatiXOS/android_kernel_google_bonito",
+   "target_path": "kernel/google/bonito",
+   "branch":      "9"
+ },
+ {
+   "repository":  "StatiXOS/android_vendor_google",
+   "target_path": "vendor/google",
+   "branch":      "9"
+ }
+]
