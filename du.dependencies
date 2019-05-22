@@ -1,0 +1,22 @@
+[
+ {
+   "repository":  "DirtyUnicorns/android_device_google_bonito-sepolicy",
+   "target_path": "device/google/bonito-sepolicy",
+   "branch":      "p9x"
+ },
+ {
+   "repository":  "DirtyUnicorns/android_kernel_google_bonito",
+   "target_path": "kernel/google/bonito",
+   "branch":      "p9x"
+ },
+ {
+   "repository":  "DirtyUnicorns/android_vendor_google",
+   "target_path": "vendor/google",
+   "branch":      "p9x"
+ },
+ {
+   "repository":  "DirtyUnicorns/android_hardware_google_pixel",
+   "target_path": "hardware/google/pixel",
+   "branch":      "p9x"
+ }
+]
