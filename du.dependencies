@@ -13,10 +13,5 @@
    "repository":  "DirtyUnicorns/android_vendor_google",
    "target_path": "vendor/google",
    "branch":      "p9x"
- },
- {
-   "repository":  "DirtyUnicorns/android_hardware_google_pixel",
-   "target_path": "hardware/google/pixel",
-   "branch":      "p9x"
  }
 ]
