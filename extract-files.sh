@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=bonito
+DEVICE=sargo
 VENDOR=google
 
 # Load extract_utils and do some sanity checks
@@ -34,6 +34,9 @@ if [ ! -f "$HELPER" ]; then
 fi
 . "$HELPER"
 
+# Default to sanitizing the vendor folder before extraction
+CLEAN_VENDOR=true
+
 while [ "$1" != "" ]; do
     case $1 in
         -n | --no-cleanup )     CLEAN_VENDOR=false
@@ -42,11 +45,7 @@ while [ "$1" != "" ]; do
                                 SECTION=$1
                                 CLEAN_VENDOR=false
                                 ;;
-        --sargo )               shift
-                                SARGO_SRC=$1
-                                ;;
-        --bonito )              shift
-                                BONITO_SRC=$1
+        * )                     SRC=$1
                                 ;;
     esac
     shift
@@ -59,12 +58,6 @@ fi
 # Initialize the helper
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
-extract "$MY_DIR"/bonito-proprietary-files.txt "$BONITO_SRC" "$SECTION"
-
-# Reinitialize the helper for sargo
-DEVICE=sargo
-setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
-
-extract "$MY_DIR"/sargo-proprietary-files.txt "$SARGO_SRC" "$SECTION"
+extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 
 "$MY_DIR"/setup-makefiles.sh

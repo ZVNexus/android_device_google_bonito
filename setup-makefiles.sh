@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # Copyright (C) 2016 The CyanogenMod Project
@@ -18,8 +19,7 @@
 
 set -e
 
-DEVICE=bonito
-DEVICE_COMMON=bonito
+DEVICE=sargo
 VENDOR=google
 
 INITIAL_COPYRIGHT_YEAR=2019
@@ -38,32 +38,12 @@ fi
 . "$HELPER"
 
 # Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" true
-
-# Copyright headers and guards
-write_headers "bonito sargo"
-
-write_makefiles "$MY_DIR"/bonito-proprietary-files.txt true
-
-cat << EOF >> "$ANDROIDMK"
-
-EOF
-
-# Finish bonito
-write_footers
-
-# Reinitialize the helper
-DEVICE=sargo
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT"
 
 # Copyright headers and guards
 write_headers
 
-write_makefiles "$MY_DIR"/sargo-proprietary-files.txt true
-
-cat << EOF >> "$ANDROIDMK"
-
-EOF
+write_makefiles "$MY_DIR"/proprietary-files.txt true
 
 # Finish
 write_footers
