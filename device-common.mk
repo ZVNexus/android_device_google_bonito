@@ -150,4 +150,5 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/recovery/root/sbin/libicuuc.so:recovery/root/sbin/libicuuc.so \
     device/google/bonito/recovery/root/sbin/libxml2.so:recovery/root/sbin/libxml2.so \
     device/google/bonito/recovery/root/sbin/libion.so:recovery/root/sbin/libion.so \
+    device/google/bonito/recovery/root/sbin/libsecureui.so:recovery/root/sbin/libsecureui.so \
     device/google/bonito/recovery/root/sbin/android.hardware.confirmationui@1.0.so:recovery/root/sbin/android.hardware.confirmationui@1.0.so
