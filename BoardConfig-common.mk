@@ -128,8 +128,6 @@ BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
-include device/google/bonito-sepolicy/bonito-sepolicy.mk
-
 TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
 
 QCOM_BOARD_PLATFORMS += sdm710
@@ -236,8 +234,6 @@ BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
 # Single vendor RIL with SDM845
 BOARD_USES_SDM845_QCRIL := true
-
--include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
 
 # TWRP
 TW_DEVICE_VERSION := 2
