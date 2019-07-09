@@ -236,7 +236,7 @@ BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 BOARD_USES_SDM845_QCRIL := true
 
 # TWRP
-TW_DEVICE_VERSION := 4
+TW_DEVICE_VERSION := 5
 TW_THEME := portrait_hdpi
 BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
