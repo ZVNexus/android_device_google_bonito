@@ -44,6 +44,19 @@ on boot
     write /sys/module/libcomposite/parameters/disable_l1_for_hs "y"
     write /config/usb_gadget/g1/functions/gsi.rndis/rndis_class_id 1
 
+    # Permission for Vibrator
+    chown root root /sys/class/leds/vibrator/device/mode
+    chown root root /sys/class/leds/vibrator/device/od_clamp
+    chown root root /sys/class/leds/vibrator/device/rtp_input
+    chown root root /sys/class/leds/vibrator/device/scale
+    chown root root /sys/class/leds/vibrator/device/set_sequencer
+    chown root root /sys/class/leds/vibrator/device/autocal_result
+    chown root root /sys/class/leds/vibrator/device/ctrl_loop
+    chown root root /sys/class/leds/vibrator/device/ol_lra_period
+    chown root root /sys/class/leds/vibrator/device/autocal
+    chown root root /sys/class/leds/vibrator/device/lp_trigger_effect
+    chown root root /sys/class/leds/vibrator/device/lra_wave_shape
+
 on init
     setprop sys.usb.configfs 1
     # Enable thermal mitigation
@@ -51,6 +64,7 @@ on init
     start prepdecrypt
     start servicemanager
     start vendor.boot-hal-1-0
+    start vendor.vibrator-1-2
 
 service prepdecrypt /sbin/prepdecrypt.sh
     oneshot
@@ -111,6 +125,12 @@ service vendor.boot-hal-1-0 /sbin/android.hardware.boot@1.0-service
     seclabel u:r:recovery:s0
 
 service vendor.weaver_hal /sbin/android.hardware.weaver@1.0-service.citadel
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service vendor.vibrator-1-2 /sbin/android.hardware.vibrator@1.2-service.bonito
     disabled
     user root
     group root

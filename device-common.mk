@@ -111,6 +111,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.boot@1.0-service:recovery/root/sbin/android.hardware.boot@1.0-service \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.confirmationui@1.0.so:recovery/root/sbin/android.hardware.confirmationui@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@4.0-service-qti:recovery/root/sbin/android.hardware.keymaster@4.0-service-qti \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.vibrator@1.0.so:recovery/root/sbin/android.hardware.vibrator@1.0.so \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.vibrator@1.1.so:recovery/root/sbin/android.hardware.vibrator@1.1.so \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.vibrator@1.2.so:recovery/root/sbin/android.hardware.vibrator@1.2.so \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.vibrator@1.2-service.bonito:recovery/root/sbin/android.hardware.vibrator@1.2-service.bonito \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.weaver@1.0.so:recovery/root/sbin/android.hardware.weaver@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.weaver@1.0-service.citadel:recovery/root/sbin/android.hardware.weaver@1.0-service.citadel \
     $(LOCAL_PATH)/recovery/root/sbin/citadeld:recovery/root/sbin/citadeld \
@@ -142,6 +146,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/compatibility_matrix.xml:recovery/root/vendor/compatibility_matrix.xml \
     $(LOCAL_PATH)/recovery/root/vendor/etc/vintf/compatibility_matrix.xml:recovery/root/vendor/etc/vintf/compatibility_matrix.xml \
     $(LOCAL_PATH)/recovery/root/vendor/etc/vintf/manifest.xml:recovery/root/vendor/etc/vintf/manifest.xml \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/cs40l20.bin:recovery/root/vendor/firmware/cs40l20.bin \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/cs40l20.wmfw:recovery/root/vendor/firmware/cs40l20.wmfw \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/drv2624.bin:recovery/root/vendor/firmware/drv2624.bin \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.weaver@1.0-impl.nos.so:recovery/root/vendor/lib64/android.hardware.weaver@1.0-impl.nos.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/libkeymasterdeviceutils.so:recovery/root/vendor/lib64/libkeymasterdeviceutils.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/libkeymasterutils.so:recovery/root/vendor/lib64/libkeymasterutils.so \
