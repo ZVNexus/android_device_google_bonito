@@ -107,7 +107,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor_hwservice_contexts:recovery/root/vendor_hwservice_contexts \
     $(LOCAL_PATH)/recovery/root/vndservice_contexts:recovery/root/vndservice_contexts \
     $(LOCAL_PATH)/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab \
-    $(LOCAL_PATH)/recovery/root/etc/update-payload-key.pub.pem:recovery/root/etc/update-payload-key.pub.pem \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.boot@1.0-service:recovery/root/sbin/android.hardware.boot@1.0-service \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.confirmationui@1.0.so:recovery/root/sbin/android.hardware.confirmationui@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@4.0-service-qti:recovery/root/sbin/android.hardware.keymaster@4.0-service-qti \
@@ -131,7 +130,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/prepdecrypt.sh:recovery/root/sbin/prepdecrypt.sh \
     $(LOCAL_PATH)/recovery/root/sbin/qseecomd:recovery/root/sbin/qseecomd \
     $(LOCAL_PATH)/recovery/root/sbin/touchdriver.sh:recovery/root/sbin/touchdriver.sh \
-    $(LOCAL_PATH)/recovery/root/sbin/update_engine_sideload:recovery/root/sbin/update_engine_sideload \
     $(LOCAL_PATH)/recovery/root/sbin/vndservicemanager:recovery/root/sbin/vndservicemanager \
     $(LOCAL_PATH)/recovery/root/system/etc/vintf/manifest.xml:recovery/root/manifest.xml \
     $(LOCAL_PATH)/recovery/root/vendor/compatibility_matrix.1.xml:recovery/root/vendor/compatibility_matrix.1.xml \
