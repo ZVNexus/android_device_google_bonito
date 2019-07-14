@@ -1,5 +1,5 @@
 #
-# Copyright 2015 The Android Open Source Project
+# Copyright 2019 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,5 +14,19 @@
 # limitations under the License.
 #
 
-add_lunch_combo omni_bonito-eng
-add_lunch_combo omni_sargo-eng
+# Release name
+PRODUCT_RELEASE_NAME := bonito
+
+# Inherit from the common Open Source product configuration
+$(call inherit-product, build/target/product/embedded.mk)
+
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
+
+$(call inherit-product, device/google/bonito/device-bonito.mk)
+
+PRODUCT_MANUFACTURER := Google
+PRODUCT_BRAND := Android
+PRODUCT_NAME := omni_bonito
+PRODUCT_DEVICE := bonito
+PRODUCT_MODEL := Pixel 3A XL
