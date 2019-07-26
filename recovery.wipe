@@ -1,0 +1,7 @@
+/dev/block/bootdevice/by-name/system_a
+/dev/block/bootdevice/by-name/system_b
+/dev/block/bootdevice/by-name/vendor_a
+/dev/block/bootdevice/by-name/vendor_b
+/dev/block/bootdevice/by-name/userdata
+/dev/block/bootdevice/by-name/boot_a
+/dev/block/bootdevice/by-name/boot_b

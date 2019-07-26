@@ -1,0 +1,8 @@
+[
+  {
+    "remote": "github",
+    "repository": "ZVNexus/android_kernel_google_bonito",
+    "target_path": "kernel/google/bonito",
+    "revision": "android-9.0"
+  }
+]
