@@ -24,5 +24,7 @@ PRODUCT_PLATFORM := sdm670
 include device/google/bonito/device.mk
 
 # TWRP
+PRODUCT_COPY_FILES += \
   $(LOCAL_PATH)/recovery/root/init.rc:recovery/root/init.rc \
-  $(LOCAL_PATH)/recovery/root/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc
+  $(LOCAL_PATH)/recovery/root/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc \
+  $(LOCAL_PATH)/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab
