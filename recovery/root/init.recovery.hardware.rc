@@ -14,9 +14,16 @@ on init
     mkdir /config/usb_gadget/g1/functions/ffs.adb
     write /config/usb_gadget/g1/os_desc/use 1
     setprop sys.usb.configfs 1
-
+    start vendor.boot-hal-1-0
+    
     # Enable thermal mitigation
     write /sys/devices/virtual/thermal/tz-by-name/backup-charge/mode enabled
+
+service vendor.boot-hal-1-0 /sbin/android.hardware.boot@1.0-service
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
 
 on property:sys.usb.ffs.ready=1
     mkdir /config/usb_gadget/g1/configs/b.1 0777 shell shell
