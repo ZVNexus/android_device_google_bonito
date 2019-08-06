@@ -39,8 +39,8 @@ PRODUCT_MANUFACTURER := Google
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=bonito \
-    BUILD_FINGERPRINT=google/bonito/bonito:9/PQ3B.190705.003/5622519:user/release-keys \
-    PRIVATE_BUILD_DESC="bonito-user 9 PQ3B.190705.003 5622519 release-keys"
+    BUILD_FINGERPRINT=google/bonito/bonito:9/PQ3B.190801.002/5674421:user/release-keys \
+    PRIVATE_BUILD_DESC="bonito-user 9 PQ3B.190801.002 5674421 release-keys"
 
 $(call inherit-product-if-exists, vendor/google/bonito/bonito-vendor.mk)
 $(call inherit-product-if-exists, vendor/pixelgapps/pixel-gapps.mk)
