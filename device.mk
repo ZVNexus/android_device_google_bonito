@@ -57,6 +57,8 @@ PRODUCT_PACKAGES += \
     update_engine_sideload \
     sg_write_buffer
 
+PRODUCT_VENDOR_KERNEL_HEADERS := device/google/bonito/sdm710/kernel-headers
+
 # Boot control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
