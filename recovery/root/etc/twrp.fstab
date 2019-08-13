@@ -6,6 +6,7 @@
 /metadata       ext4   /dev/block/bootdevice/by-name/metadata   flags=display="Metadata"
 /data           f2fs   /dev/block/bootdevice/by-name/userdata   flags=wait;check;fileencryption=ice;keydirectory=/metadata/vold/metadata_encryption;formattable
 /misc           emmc   /dev/block/bootdevice/by-name/misc
+/persist        ext4   /dev/block/bootdevice/by-name/persist    flags=display="Persist"
 
 # USB OTG
 /usb_otg        vfat   /dev/block/sda         /dev/block/sda1   flags=voldmanaged=usbotg:auto;display="USB-OTG";storage;wipeingui;removable
