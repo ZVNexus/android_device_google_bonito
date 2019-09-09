@@ -45,3 +45,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Add white point compensated coefficient
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.adaptive_white_coefficient=0.0031,0.5535,-87.498,0.0031,0.5535,-87.498,0.0031,0.5535,-87.498
+
+BOARD_PREBUILT_VENDORIMAGE := vendor/images/sargo/vendor.img
