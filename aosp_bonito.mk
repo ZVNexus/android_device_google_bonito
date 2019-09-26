@@ -40,5 +40,4 @@ PRODUCT_DEVICE := bonito
 PRODUCT_MODEL := AOSP on bonito
 
 PRODUCT_COPY_FILES += \
-    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml \
     $(LOCAL_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
