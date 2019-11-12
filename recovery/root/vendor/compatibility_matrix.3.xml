@@ -1,6 +1,9 @@
 <!--
     Input:
         compatibility_matrix.3.xml
+        matrix.xml
+        matrix.xml
+        matrix.xml
 -->
 <compatibility-matrix version="1.0" type="framework" level="3">
     <hal format="hidl" optional="false">
@@ -222,6 +225,10 @@
     <hal format="hidl" optional="true">
         <name>android.hardware.ir</name>
         <version>1.0</version>
+        <interface>
+            <name>IConsumerIr</name>
+            <instance>default</instance>
+        </interface>
     </hal>
     <hal format="hidl" optional="false">
         <name>android.hardware.keymaster</name>
@@ -302,7 +309,7 @@
     </hal>
     <hal format="hidl" optional="true">
         <name>android.hardware.radio</name>
-        <version>1.0-2</version>
+        <version>1.0-3</version>
         <interface>
             <name>IRadio</name>
             <instance>slot1</instance>
@@ -1639,10 +1646,6 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_NETFILTER_XT_MATCH_QUOTA</key>
             <value type="tristate">y</value>
         </config>
@@ -1992,6 +1995,34 @@
         </config>
         <config>
             <key>CONFIG_XFRM_USER</key>
+            <value type="tristate">y</value>
+        </config>
+    </kernel>
+    <kernel version="4.9.84">
+        <conditions>
+            <config>
+                <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
+                <value type="tristate">n</value>
+            </config>
+        </conditions>
+        <config>
+            <key>CONFIG_NETFILTER_XT_MATCH_OWNER</key>
+            <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_NET_CLS_BPF</key>
+            <value type="tristate">y</value>
+        </config>
+    </kernel>
+    <kernel version="4.9.84">
+        <conditions>
+            <config>
+                <key>CONFIG_NETFILTER_XT_MATCH_OWNER</key>
+                <value type="tristate">n</value>
+            </config>
+        </conditions>
+        <config>
+            <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
             <value type="tristate">y</value>
         </config>
     </kernel>
@@ -2433,10 +2464,6 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_NETFILTER_XT_MATCH_QUOTA</key>
             <value type="tristate">y</value>
         </config>
@@ -2786,6 +2813,34 @@
         </config>
         <config>
             <key>CONFIG_XFRM_USER</key>
+            <value type="tristate">y</value>
+        </config>
+    </kernel>
+    <kernel version="4.14.42">
+        <conditions>
+            <config>
+                <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
+                <value type="tristate">n</value>
+            </config>
+        </conditions>
+        <config>
+            <key>CONFIG_NETFILTER_XT_MATCH_OWNER</key>
+            <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_NET_CLS_BPF</key>
+            <value type="tristate">y</value>
+        </config>
+    </kernel>
+    <kernel version="4.14.42">
+        <conditions>
+            <config>
+                <key>CONFIG_NETFILTER_XT_MATCH_OWNER</key>
+                <value type="tristate">n</value>
+            </config>
+        </conditions>
+        <config>
+            <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
             <value type="tristate">y</value>
         </config>
     </kernel>
