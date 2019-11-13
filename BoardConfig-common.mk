@@ -126,6 +126,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
+TARGET_EXCLUDE_QCOM_SEPOLICY := true
+
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
 TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
