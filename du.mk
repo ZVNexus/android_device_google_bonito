@@ -31,12 +31,12 @@ PRODUCT_MANUFACTURER := Google
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="bonito" \
     TARGET_DEVICE="bonito" \
-    PRIVATE_BUILD_DESC="bonito-user 10 QP1A.191105.003 5899767 release-keys"
+    PRIVATE_BUILD_DESC="bonito-user 10 QQ1A.191205.011 6009058 release-keys"
 
-BUILD_FINGERPRINT := "google/bonito/bonito:10/QP1A.191105.003/5899767:user/release-keys"
+BUILD_FINGERPRINT := "google/bonito/bonito:10/QQ1A.191205.011/6009058:user/release-keys"
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.fingerprint=google/bonito/bonito:10/QP1A.191105.003/5899767:user/release-keys
+    ro.build.fingerprint=google/bonito/bonito:10/QQ1A.191205.011/6009058:user/release-keys
 
 BOARD_PREBUILT_VENDORIMAGE := vendor/images/bonito/vendor.img
 
