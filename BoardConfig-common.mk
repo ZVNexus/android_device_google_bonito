@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 The Android Open-Source Project
+# Copyright (C) 2016-2019 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 
 include build/make/target/board/BoardConfigMainlineCommon.mk
 
+PLATFORM_PATH := device/google/bonito
+
 TARGET_BOARD_PLATFORM := sdm710
-TARGET_BOARD_INFO_FILE := device/google/bonito/board-info.txt
+TARGET_BOARD_INFO_FILE := $(PLATFORM_PATH)/board-info.txt
 USES_DEVICE_GOOGLE_B4S4 := true
 
 TARGET_ARCH := arm64
@@ -34,7 +36,7 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a75
 
-TARGET_BOARD_COMMON_PATH := device/google/bonito/sdm710
+TARGET_BOARD_COMMON_PATH := $(PLATFORM_PATH)/sdm710
 
 BUILD_BROKEN_DUP_RULES := true
 
@@ -44,7 +46,6 @@ BOARD_KERNEL_CMDLINE += ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += service_locator.enable=1
 BOARD_KERNEL_CMDLINE += firmware_class.path=/vendor/firmware
 BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
-# STOPSHIP Bringup hack- no low power
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
 BOARD_KERNEL_CMDLINE += loop.max_part=7
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/7c4000.sdhci
@@ -65,7 +66,7 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_BOOT_HEADER_VERSION := 2
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-# DTBO partition definitions
+# DTBO partition definitions.
 BOARD_PREBUILT_DTBOIMAGE := device/google/bonito-kernel/dtbo.img
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 
@@ -73,8 +74,8 @@ TARGET_NO_KERNEL := false
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_USES_METADATA_PARTITION := true
 
+# A/B
 AB_OTA_UPDATER := true
-
 AB_OTA_PARTITIONS += \
     boot \
     system \
@@ -82,51 +83,59 @@ AB_OTA_PARTITIONS += \
     dtbo \
     product
 
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-
 # Partitions (listed in the file) to be wiped under recovery.
-TARGET_RECOVERY_WIPE := device/google/bonito/recovery.wipe
-TARGET_RECOVERY_FSTAB := device/google/bonito/fstab.hardware
+TARGET_RECOVERY_WIPE := $(PLATFORM_PATH)/recovery.wipe
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/fstab.hardware
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := \
     librecovery_ui_pixel \
     libfstab
 
-# system.img
+# Boot
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
+
+# EXT4
+BOARD_EXT4_SHARE_DUP_BLOCKS := true
+TARGET_USES_MKE2FS := true
+
+# System
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 
-# persist.img
+# Persist
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 41943040
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# boot.img
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
+# Product
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 
-BOARD_EXT4_SHARE_DUP_BLOCKS := true
-BOARD_SUPER_PARTITION_GROUPS := google_dynamic_partitions
+# Dynamic / Super
+# Assume 4MB metadata size.
+# TODO(b/117997386): Use correct metadata size.
+BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE := 4068474880
 BOARD_GOOGLE_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system \
     vendor \
     product
 
+BOARD_SUPER_PARTITION_GROUPS := google_dynamic_partitions
 BOARD_SUPER_PARTITION_SIZE := 4072669184
 BOARD_SUPER_PARTITION_METADATA_DEVICE := system
 BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor
 BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 3267362816
 BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 805306368
-# Assume 4MB metadata size.
-# TODO(b/117997386): Use correct metadata size.
-BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE := 4068474880
 
 BOARD_FLASH_BLOCK_SIZE := 131072
 
+# Symlinks
 BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
+# SELinux
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
-TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
+TARGET_FS_CONFIG_GEN := $(PLATFORM_PATH)/config.fs
 
+# QCOM
 QCOM_BOARD_PLATFORMS += sdm710
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_USES_COMMON_BLUETOOTH_HAL := true
@@ -151,7 +160,7 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 USE_SENSOR_MULTI_HAL := true
 TARGET_SUPPORT_DIRECT_REPORT := true
 
-# wlan
+# WLAN
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_HOSTAPD_DRIVER := NL80211
@@ -190,14 +199,14 @@ TARGET_USES_COLOR_METADATA := true
 TARGET_USES_DRM_PP := true
 
 # Vendor Interface Manifest
-DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
-DEVICE_MATRIX_FILE := device/google/bonito/compatibility_matrix.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/bonito/device_framework_matrix.xml
+DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(PLATFORM_PATH)/device_framework_matrix.xml
 
 # Userdebug only Vendor Interface Manifest
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-DEVICE_FRAMEWORK_MANIFEST_FILE += device/google/bonito/framework_manifest_userdebug.xml
-DEVICE_MATRIX_FILE += device/google/bonito/compatibility_matrix_userdebug.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += $(PLATFORM_PATH)/framework_manifest_userdebug.xml
+DEVICE_MATRIX_FILE += $(PLATFORM_PATH)/compatibility_matrix_userdebug.xml
 endif
 
 ODM_MANIFEST_SKUS := \
@@ -210,17 +219,14 @@ ODM_MANIFEST_SKUS := \
     G020G \
     G020H \
 
-ODM_MANIFEST_G020A_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020B_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020C_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020D_FILES := device/google/bonito/nfc/manifest_se_eSE1.xml
-ODM_MANIFEST_G020E_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020F_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020G_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
-ODM_MANIFEST_G020H_FILES := device/google/bonito/nfc/manifest_se_eSE1.xml
-
-# Use mke2fs to create ext4 images
-TARGET_USES_MKE2FS := true
+ODM_MANIFEST_G020A_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020B_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020C_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020D_FILES := $(PLATFORM_PATH)/nfc/manifest_se_eSE1.xml
+ODM_MANIFEST_G020E_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020F_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020G_FILES := $(PLATFORM_PATH)/nfc/manifest_se_SIM1.xml
+ODM_MANIFEST_G020H_FILES := $(PLATFORM_PATH)/nfc/manifest_se_eSE1.xml
 
 # Kernel modules
 ifeq (,$(filter-out sargo_kasan bonito_kasan, $(TARGET_PRODUCT)))
@@ -258,7 +264,7 @@ else
 BOARD_PREBUILT_DTBIMAGE_DIR := device/google/bonito-kernel
 endif
 
-# Testing related defines
+# Testing related defines.
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk

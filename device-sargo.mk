@@ -1,5 +1,5 @@
 #
-# Copyright 2016 The Android Open Source Project
+# Copyright 2016-2019 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +14,16 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := device/google/bonito
+
 PRODUCT_HARDWARE := sargo
 
 include device/google/bonito/device-common.mk
 
-DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/sargo/overlay
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+    $(LOCAL_PATH)/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
 PRODUCT_PRODUCT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
 
@@ -36,12 +38,12 @@ PRODUCT_PRODUCT_PROPERTIES +=\
 
 # DRV2624 Haptics Waveform
 PRODUCT_COPY_FILES += \
-    device/google/bonito/vibrator/drv2624/drv2624_S4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
+    $(LOCAL_PATH)/vibrator/drv2624/drv2624_S4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
 
-# camera front flashColor
+# Front camera flashColor
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.front.flashColor=0xffe1c1
 
-# Add white point compensated coefficient
+# Add white point compensated coefficient.
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.adaptive_white_coefficient=0.0031,0.5535,-87.498,0.0031,0.5535,-87.498,0.0031,0.5535,-87.498

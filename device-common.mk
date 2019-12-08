@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The Android Open-Source Project
+# Copyright (C) 2017-2019 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 LOCAL_PATH := device/google/bonito
 
-# define hardware platform
+# Hardware platform
 PRODUCT_PLATFORM := sdm670
 
 # Enable updating of APEXes
@@ -95,20 +95,19 @@ ro.bluetooth.a2dp_offload.supported=true
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.bluetooth.a2dp_offload.disabled=false
 
-# A2DP offload DSP supported encoder list
+# A2DP offload DSP supported encoder list.
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac
 
 # Modem loging file
 PRODUCT_COPY_FILES += \
-    device/google/bonito/init.logging.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).logging.rc
+    $(LOCAL_PATH)/init.logging.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).logging.rc
 
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.0-service.bonito
 
-# Enable retrofit dynamic partitions for all bonito
-# and sargo targets
+# Enable retrofit dynamic partitions for all B4S4 targets.
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += \

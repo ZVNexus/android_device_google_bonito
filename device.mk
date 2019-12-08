@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 The Android Open-Source Project
+# Copyright (C) 2016-2019 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,12 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := device/google/bonito
+
 TARGET_CHIPSET := sdm710
 
 PRODUCT_SOONG_NAMESPACES += \
-    device/google/bonito \
+    $(LOCAL_PATH) \
     hardware/google/av \
     hardware/google/interfaces \
     hardware/google/pixel \
@@ -29,7 +31,7 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
 
-# enable cal by default on accel sensor
+# Enable calibration by default on acceleration sensor.
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.debug.sensors.accel_cal=1
 
@@ -39,11 +41,11 @@ PRODUCT_PRODUCT_PROPERTIES += \
     masterclear.allow_retain_esim_profiles_after_fdr=true
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml \
+    $(LOCAL_PATH)/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.verified_boot.xml
 
-# Enforce privapp-permissions whitelist
+# Enforce privapp-permissions whitelist.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
 
@@ -54,13 +56,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     messaging
 
-LOCAL_PATH := device/google/bonito
-
 TARGET_PRODUCT_PROP := $(LOCAL_PATH)/product.prop
 
 $(call inherit-product, $(LOCAL_PATH)/utils.mk)
 
-# Installs gsi keys into ramdisk, to boot a GSI with verified boot.
+# Installs GSI keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 ifeq ($(wildcard vendor/google_devices/bonito/proprietary/device-vendor-bonito.mk),)
@@ -116,15 +116,15 @@ else
       $(LOCAL_PATH)/init.hardware.mpssrfs.rc.user:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).mpssrfs.rc
 endif
 
-#per device
+# Device specific initialization scripts.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bonito/init.bonito.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bonito.rc \
     $(LOCAL_PATH)/sargo/init.sargo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.sargo.rc \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.bonito.rc \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.sargo.rc \
 
-MSM_VIDC_TARGET_LIST := sdm710 # Get the color format from kernel headers
-MASTER_SIDE_CP_TARGET_LIST := sdm710 # ION specific settings
+MSM_VIDC_TARGET_LIST := sdm710 # Get the color format from kernel headers.
+MASTER_SIDE_CP_TARGET_LIST := sdm710 # ION specific settings.
 
 # A/B support
 PRODUCT_PACKAGES += \
@@ -133,7 +133,7 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier
 
-# Use Sdcardfs
+# Use SDCardFS
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.sys.sdcardfs=1
 
@@ -216,22 +216,22 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.strongbox_keystore.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.strongbox_keystore.xml \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml \
 
-# power HAL
+# Power HAL
 PRODUCT_PACKAGES += \
     android.hardware.power@1.3-service.pixel-libperfmgr
 
-# powerstats HAL
+# Powerstats HAL
 PRODUCT_PACKAGES += \
     android.hardware.power.stats@1.0-service.pixel
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
-# perfstatsd
+# PerfStats
 PRODUCT_PACKAGES_DEBUG += \
     perfstatsd
 
-# Audio fluence, ns, aec property, voice and media volume steps
+# Audio fluence, NS, AEC property, voice and media volume steps.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.fluencetype=fluencepro \
     persist.audio.fluence.voicecall=true \
@@ -244,14 +244,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
-# MaxxAudio effect and add rotation monitor
+# MaxxAudio effect and add rotation monitor.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.audio.monitorRotation=true
 
 PRODUCT_PACKAGES += \
     libmalistener
 
-# graphics
+# Graphics.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
 
@@ -262,7 +262,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.foss.config=1 \
     vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
 
-# Add saturation parameters
+# Add saturation parameters.
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.adaptive_saturation_parameter=1.1574,-0.0426,-0.0426,-0.143,1.057,-0.143,-0.0144,-0.0144,1.1856
 
@@ -273,16 +273,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_inline_rotator=1
 
-# Enable camera EIS3.0
+# Enable camera EIS 3.0.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.is_type=5 \
     persist.camera.gzoom.at=0
 
-# camera google face detection
+# Google camera face detection.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.googfd.enable=1
 
-# Enable logical camera as default (camera id 1)
+# Enable logical camera as default (Camera ID 1).
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.logical.default=1
 
@@ -311,23 +311,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
 
-# Disable snapshot timer
+# Disable snapshot timer.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.snapshot_enabled=0 \
     persist.vendor.radio.snapshot_timer=0
 
-# logical camera for dual front sensors
+# Logical camera for dual front sensors.
 PRODUCT_PROPERTY_OVERRIDES += \
   persist.vendor.camera.multicam=1
 
-# WLAN driver configuration files
+# WLAN driver configuration files.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi_concurrency_cfg.txt:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wifi_concurrency_cfg.txt \
     $(LOCAL_PATH)/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini \
 
-#ipacm configuration files
+# IPACM configuration
 PRODUCT_COPY_FILES += \
     hardware/qcom/data/ipacfg-mgr/msm8998/ipacm/src/IPACM_cfg.xml:$(TARGET_COPY_OUT_VENDOR)/etc/IPACM_cfg.xml
 
@@ -371,11 +371,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
-# Property for loading BDA from device tree
+# Property for loading BDA from device tree.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bt.bdaddr_path=/proc/device-tree/chosen/cdt/cdb2/bt_addr
 
-# Enable Perfetto traced
+# Enable Perfetto traced.
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.traced.enable=1
 
@@ -400,8 +400,8 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.1-service-disabled
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
-    device/google/bonito/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
+    $(LOCAL_PATH)/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
+    $(LOCAL_PATH)/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.uicc.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/permissions/sku_G020A/android.hardware.nfc.uicc.xml \
@@ -414,8 +414,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.ese.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/permissions/sku_G020H/android.hardware.nfc.ese.xml
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020D/com.google.hardware.pixel.japan.xml \
-    device/google/bonito/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020H/com.google.hardware.pixel.japan.xml
+    $(LOCAL_PATH)/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020D/com.google.hardware.pixel.japan.xml \
+    $(LOCAL_PATH)/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020H/com.google.hardware.pixel.japan.xml
 
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service.bonito
@@ -433,7 +433,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.media.codec2=2 \
 
-# Create input surface on the framework side
+# Create input surface on the framework side.
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2inputsurface=-1 \
 
@@ -462,15 +462,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/sensors/hals.conf:vendor/etc/sensors/hals.conf
 
-# Default permission grant exceptions
+# Default permission grant exceptions.
 PRODUCT_COPY_FILES += \
-    device/google/bonito/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml
+    $(LOCAL_PATH)/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml
 
 PRODUCT_PACKAGES += \
     fs_config_dirs \
     fs_config_files
 
-# Context hub HAL
+# ContextHub HAL
 PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0-impl.generic \
     android.hardware.contexthub@1.0-service
@@ -505,7 +505,6 @@ ENABLE_VENDOR_RIL_SERVICE := true
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
-
 HOSTAPD := hostapd
 HOSTAPD += hostapd_cli
 PRODUCT_PACKAGES += $(HOSTAPD)
@@ -519,7 +518,7 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += wpa_cli
 endif
 
-# Wifi
+# WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wificond \
@@ -591,7 +590,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_platform_info_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4.xml \
     $(LOCAL_PATH)/audio_platform_info_intcodec_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4dev.xml
 
-# audio hal tables
+# Audio HAL tables
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_platform_info.xml \
     $(LOCAL_PATH)/sound_trigger_mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths.xml \
@@ -605,10 +604,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/media_codecs_omx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_omx.xml
 
-# configures both aac and xaac decoders
+# Configures both AAC and XAAC decoders.
 PRODUCT_COPY_FILES += \
-    device/google/bonito/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-# and ensure that the xaac decoder is built
+    $(LOCAL_PATH)/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
+
+# Ensure that the XAAC decoder is built.
 PRODUCT_PACKAGES += \
     libstagefright_soft_xaacdec.vendor
 
@@ -618,7 +618,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/lowi.conf:$(TARGET_COPY_OUT_VENDOR)/etc/lowi.conf
 
-# GPS configuration file
+# GPS configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 
@@ -627,8 +627,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp_policy/codec2.vendor.ext.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.vendor.ext.policy \
     $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
+# Subsystem RAM dump
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-# Subsystem ramdump
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.sys.ssr.enable_ramdumps=1
 endif
@@ -637,14 +637,14 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.sys.ssr.restart_level=modem,slpi,adsp
 
-# setup dalvik vm configs
+# Setup Dalvik VM configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM) \
-    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.$(PRODUCT_PLATFORM) \
+    $(LOCAL_PATH)/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM) \
+    $(LOCAL_PATH)/fstab.hardware:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.$(PRODUCT_PLATFORM) \
 
-# Use the default charger mode images
+# Use the default charger mode images.
 PRODUCT_PACKAGES += \
     charger_res_images
 
@@ -668,42 +668,42 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service.citadel \
     wait_for_strongbox
 
-# Citadel debug stuff
+# Citadel debugging
 PRODUCT_PACKAGES_DEBUG += \
     test_citadel
 
-# Storage: for factory reset protection feature
+# Storage: for factory reset protection feature.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
 PRODUCT_PACKAGES += \
     vndk-sp
 
-# Override heap growth limit due to high display density on device
+# Override heap growth limit due to high display density on device.
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=256m
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-32:system/lib/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-64:system/lib64/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-32:vendor/lib/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-64:vendor/lib64/android.hidl.base@1.0.so \
+    $(LOCAL_PATH)/hidl/android.hidl.base@1.0.so-32:system/lib/android.hidl.base@1.0.so \
+    $(LOCAL_PATH)/hidl/android.hidl.base@1.0.so-64:system/lib64/android.hidl.base@1.0.so \
+    $(LOCAL_PATH)/hidl/android.hidl.base@1.0.so-32:vendor/lib/android.hidl.base@1.0.so \
+    $(LOCAL_PATH)/hidl/android.hidl.base@1.0.so-64:vendor/lib64/android.hidl.base@1.0.so \
 
 PRODUCT_PACKAGES += \
     ipacm
 
-#Set default CDMA subscription to RUIM
+# Set default CDMA subscription to RUIM.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_cdma_sub=0
 
-# Set display color mode to Automatic by default
+# Set display color mode to "Automatic" by default.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.sf.color_saturation=1.0 \
     persist.sys.sf.native_mode=2
 
 # Easel device feature
 PRODUCT_COPY_FILES += \
-    device/google/bonito/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
+    $(LOCAL_PATH)/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
 
 # ConfirmationUI HAL
 PRODUCT_PACKAGES += \
@@ -724,76 +724,76 @@ PRODUCT_COPY_FILES += \
 
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
-    device/google/bonito/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
-    device/google/bonito/vibrator/cs40l20/cs40l20.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.bin
+    $(LOCAL_PATH)/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
+    $(LOCAL_PATH)/vibrator/cs40l20/cs40l20.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.bin
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/google/bonito/sdm710/kernel-headers
+PRODUCT_VENDOR_KERNEL_HEADERS := $(LOCAL_PATH)/sdm710/kernel-headers
 
 # Audio ACDB data
 PRODUCT_COPY_FILES += \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/adsp_avs_config.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/adsp_avs_config.acdb
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Bluetooth_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/General_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Global_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Handset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Hdmi_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Headset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/Speaker_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Bluetooth_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/General_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Global_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Handset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Hdmi_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Headset_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/Speaker_cal.acdb \
+     $(LOCAL_PATH)/acdbdata/adsp_avs_config.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/adsp_avs_config.acdb
 
 # Audio ACDB workspace files for QACT
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_COPY_FILES += \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/workspaceFile.qwsp \
-     device/google/bonito/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/workspaceFile.qwsp
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-b4dev-snd-card/workspaceFile.qwsp \
+     $(LOCAL_PATH)/acdbdata/OEM/sdm670-intcodec-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-intcodec-s4dev-snd-card/workspaceFile.qwsp
 endif
 
 # CS35L36 Speaker Tuning
 PRODUCT_COPY_FILES += \
-    device/google/bonito/audio/crus_sp_config_b4_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b4_rx.bin \
-    device/google/bonito/audio/crus_sp_config_b4_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b4_tx.bin \
-    device/google/bonito/audio/crus_sp_config_s4_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_rx.bin \
-    device/google/bonito/audio/crus_sp_config_s4_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_tx.bin
+    $(LOCAL_PATH)/audio/crus_sp_config_b4_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b4_rx.bin \
+    $(LOCAL_PATH)/audio/crus_sp_config_b4_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b4_tx.bin \
+    $(LOCAL_PATH)/audio/crus_sp_config_s4_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_rx.bin \
+    $(LOCAL_PATH)/audio/crus_sp_config_s4_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_tx.bin
 
 # RT5514 SoundTrigger
 PRODUCT_COPY_FILES += \
-    device/google/bonito/audio/rt5514_dsp_fw1.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw1.bin \
-    device/google/bonito/audio/rt5514_dsp_fw2.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw2.bin \
-    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin \
-    device/google/bonito/audio/rt5514_dsp_fw4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw4.bin
+    $(LOCAL_PATH)/audio/rt5514_dsp_fw1.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw1.bin \
+    $(LOCAL_PATH)/audio/rt5514_dsp_fw2.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw2.bin \
+    $(LOCAL_PATH)/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin \
+    $(LOCAL_PATH)/audio/rt5514_dsp_fw4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw4.bin
 
 # Keymaster configuration
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
-# Enable modem logging
+# Modem logging
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.log_loc="/data/vendor/modem_dump" \
     ro.radio.log_prefix="modem_log_"
 
-# Enable modem logging for debug
+# Enable modem logging for debug.
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.sys.modem.diag.mdlog=true \
@@ -801,7 +801,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 else
 endif
 
-# Enable tcpdump_logger on userdebug and eng
+# Enable tcpdump_logger on userdebug and eng.
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
     PRODUCT_PROPERTY_OVERRIDES += \
         persist.vendor.tcpdump.log.alwayson=false \
@@ -817,19 +817,19 @@ TARGET_LMKD_STATS_LOG := true
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.log_stats=true
 
-# default usb oem functions
+# Default USB OEM functions
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
   PRODUCT_PROPERTY_OVERRIDES += \
       persist.vendor.usb.usbradio.config=diag
 endif
 
-#Enable QTI KEYMASTER and GATEKEEPER HIDLs
+# Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
 
-#Clear the variable
+# Clear variable
 TARGET_CHIPSET := ""
 
-# Early phase offset configuration for SurfaceFlinger
+# Early phase offset configuration for SurfaceFlinger.
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_phase_offset_ns=1500000
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -839,27 +839,27 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_gl_app_phase_offset_ns=15000000
 
-# Enable backpressure for GL comp
+# Enable backpressure for GL composition.
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_gl_backpressure=1
 
-# Do not skip init trigger by default
+# Do not skip initialization trigger by default.
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.init=0
 
-# pixel atrace HAL
+# Pixel Atrace HAL
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service.pixel
 
-# fastbootd
+# Fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl.pixel \
     fastbootd
 
-# GTS ACSA(Agreement for Carrier Service Application) verification
+# GTS ACSA (Agreement for Carrier Service Application) verification.
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.com.google.acsa=true
 
-# Increment the SVN for any official public releases
+# Increment the SVN for any official public releases.
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.vendor.build.svn=15
