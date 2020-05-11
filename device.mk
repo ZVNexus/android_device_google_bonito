@@ -873,7 +873,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=20
+	ro.vendor.build.svn=22
 
 # QTI
 TARGET_COMMON_QTI_COMPONENTS := \
