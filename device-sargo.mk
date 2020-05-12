@@ -16,7 +16,6 @@
 
 $(call inherit-product, vendor/google/sargo/sargo-vendor.mk)
 
-BOARD_PREBUILT_VENDORIMAGE := vendor/google/sargo/vendor.img
 TARGET_BOARD_INFO_FILE := vendor/google/sargo/android-info.txt
 
 PRODUCT_HARDWARE := sargo

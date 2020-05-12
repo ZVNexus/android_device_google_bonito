@@ -126,3 +126,18 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.protected_contents=true
 # Set thermal warm reset
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.thermal_warmreset = true \
+
+PRODUCT_PACKAGES += \
+    libdisplayconfig \
+    libjson \
+    libminijail \
+    libtinyxml
+
+# DRM
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    media.mediadrmservice.enable=true
+
+# WiFi
+PRODUCT_PACKAGES += \
+    libwifi-hal-qcom
